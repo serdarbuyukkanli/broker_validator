@@ -21,7 +21,8 @@ def validate_instrument_type(row):
     return row['F/C/P'] in ["F", "C", "P"]
 
 def run_all_validations(df, accounts_df, brokers_df, contracts_df):
-    valid_accounts = set(accounts_df["Portfolio_Code"].dropna())
+    # should look at Account_Code not Portfolio_Code
+    valid_accounts = set(accounts_df["Account_Code"].dropna())
     valid_brokers = set(brokers_df["Broker_Code"].dropna())
     valid_contracts = set(contracts_df["Contract_Code"].dropna())
 

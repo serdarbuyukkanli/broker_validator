@@ -19,23 +19,28 @@ def format_valid_trades(df):
     # If instrument type is missing, default to "F"
     df['F/C/P'] = df['F/C/P'].str.upper().fillna('F')
 
-    # Generate Identifier field
+    # Generate Identifier field with the required format (dependant on Future or Call/Put)
     df['Identifier'] = (
         df['bloomberg_contract_code']
         + df['contract_mth'].str[0]
         + df['contract_yr'].astype(str).str[-1]
-        + df['F/C/P']
-        + ' ' + df['strike'].astype(str)
-        + ' Comdty'
+        + np.where(
+            df['F/C/P'].str.upper() == 'F',
+            ' Comdty',
+            df['F/C/P'] + ' ' + df['strike'].astype(str) + ' Comdty'
+        )
     )
 
-    # Generate PS_ID field
+    # Generate PS_ID field with the required format (dependant on Future or Call/Put)
     df['PS_ID'] = (
         df['bloomberg_contract_code']
         + '_' + df['contract_mth'].str[0]
         + '_' + df['contract_yr'].astype(str)
-        + '_' + df['strike'].astype(str)
-        + df['F/C/P']
+        + np.where(
+            df['F/C/P'].str.upper() != 'F',
+            '_' + df['strike'].astype(str) + df['F/C/P'],
+            ''
+        )
     )
 
     # Return only the required columns in specific order

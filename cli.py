@@ -4,7 +4,8 @@ from validator.loader import load_excel_file
 from pathlib import Path
 
 def run_with_custom_file():
-    custom_path = input("Enter the full path to the recap Excel file: ").strip()
+    # added .strip ('"') to remove any quotes around the path (since copy path in windows adds quotes)
+    custom_path = input("Enter the full path to the recap Excel file: ").strip().strip('"')
     if not os.path.exists(custom_path):
         print("❌ File not found.")
         return
@@ -17,7 +18,7 @@ def run_with_custom_file():
 def view_file(path):
     # Display the contents of a given file if it exists
     if os.path.exists(path):
-        with open(path, "r") as file:
+        with open(path, "r",encoding="utf-8") as file:
             print("\n--- File Content ---\n")
             print(file.read())
     else:

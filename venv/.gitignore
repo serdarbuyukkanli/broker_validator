@@ -1,0 +1,17 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+
+# VSCode settings (optional)
+.vscode/
+
+# Output files
+output/
+logs/
+
+# MacOS
+.DS_Store

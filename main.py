@@ -72,8 +72,8 @@ Rejected trades: {len(rejected_df)}
 
     # Generate email summary
     email_text = generate_email_summary(len(recap_df), len(valid_df), len(rejected_df))
-
-    with open("logs/email_summary.txt", "w") as email_file:
+    # added encoding to avoid encoding issues
+    with open("logs/email_summary.txt", "w",encoding="utf-8") as email_file:
         email_file.write(email_text)
 
     print("\n📬 Email summary written to logs/email_summary.txt")
